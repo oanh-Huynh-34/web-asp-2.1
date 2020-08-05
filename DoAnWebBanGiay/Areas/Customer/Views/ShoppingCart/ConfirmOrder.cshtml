@@ -1,0 +1,15 @@
+﻿@model DoAnWebBanGiay.Models.ViewModel.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "ConfirmOrder";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<h2 class="text-info">Confirm Order</h2>
+<div class="form-text">
+    Your order has been submitted. Our staff would be in touch shortly. Please feel free to contact us.
+</div>
+<br/>
+<partial name="~/Views/Shared/_OrderCustomerDetails.cshtml" model="Model.Order"/>
+<br/>
+ <partial name="~/Views/Shared/_OrderShoesDetails.cshtml" model="Model.Shoes"/>
+<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success">Back to buy shoes</a>

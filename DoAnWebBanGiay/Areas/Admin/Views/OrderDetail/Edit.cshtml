@@ -1,0 +1,54 @@
+﻿@model DoAnWebBanGiay.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+<h4>OrderDetail</h4>
+<hr />
+<form method="post" asp-action="Edit"  asp-antiforgery="true">
+    <div class="p-4 border rounded">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Order"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="OrderId" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Shoes"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ShoesID" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ArriveDate"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ArriveDate" value="" type="text" id="datepicker" class="form-control" autocomplete="off"  />
+                <script>
+                        $(function () {
+                        $("#datepicker").datepicker({
+                            startDate: '+3d',
+                            endDate: new Date(new Date().setDate(new Date().getDate() + 90)),
+                        });
+                        });
+                </script>
+            </div>
+            <span asp-validation-for="ArriveDate" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" asp-route-OrderId="@Model.OrderId" asp-route-ShoesId="@Model.ShoesID" value="Update" />
+            <a href="@Url.Action("Edit","Order",new { id = Model.OrderId })"  class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>

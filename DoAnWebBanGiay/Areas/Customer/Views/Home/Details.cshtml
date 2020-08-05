@@ -1,0 +1,112 @@
+﻿@model DoAnWebBanGiay.Models.Shoes
+@using DoAnWebBanGiay.Extensions
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Details";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; ;
+}
+<br />
+<h2 class="text-info">Shoes Details</h2>
+<form method="post"  asp-antiforgery="true">
+    <div class="p-4 border rounded row " style="font-family:'Times New Roman',Arial">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Color"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Color" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Size"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Size" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" class="form-control" readonly />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Available"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="Available" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ShoeTypes"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ShoeTypes.Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Brands"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Brands.Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    @{
+                        bool isInBag = false;
+                        List<int> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart");
+                        if (lstCart != null && lstCart.Contains(Model.Id))
+                        {
+                            isInBag = true;
+                        }
+
+                    }
+                    @if (isInBag)
+                    {
+                        <button type="submit" value="Romove from bag" asp-route-id="@Model.Id" asp-action="Remove" class="btn btn-danger btn-addtocart">Remove From Bag</button>
+                    }
+                    else
+                    {
+                        <button type="submit" value="Add to bag" asp-route-id="@Model.Id" class="btn btn-primary btn-addtocart">Add To Bag</button>}
+                </div>
+            </div>
+            <br />
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="@Model.Image" alt="No Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+        <div class="form-group">
+            <input hidden asp-for="Id">
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

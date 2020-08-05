@@ -1,0 +1,92 @@
+﻿@model DoAnWebBanGiay.Models.ViewModel.ShoesViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<h2 class="text-info">Shoes Details</h2>
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.Color"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.Color" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.Size"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.Size" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.Price"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.Price" readonly class="form-control" />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.Available"></label>
+            </div>
+            <div class="col-8">
+                <input type="checkbox" asp-for="Shoes.Available" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Shoes.ProviderShoes"></label>
+            </div>
+            <div class="col-8">
+                @for (int i = 0; i < Model.providers.Count(); i++)
+                {
+                    @Html.DisplayFor(m => Model.providers[i].Checked)
+                    @Html.DisplayFor(m => Model.providers[i].Name)
+                    <br />
+                }
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="shoeTypes"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.ShoeTypes.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="brands"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Shoes.Brands.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-1"></div>
+    <div class="col-3">
+        <img src="@Model.Shoes.Image" alt="No Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+    </div>
+    <div class="form-group">
+        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Shoes.Id"> Edit</a>
+        <a asp-action="Index" class="btn btn-success">Back to List</a>
+    </div>
+</div>
+
+

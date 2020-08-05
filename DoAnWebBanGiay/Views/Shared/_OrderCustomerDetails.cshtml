@@ -1,0 +1,49 @@
+﻿@model DoAnWebBanGiay.Models.Order
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="text-success">Order Details</div>
+<div class=" container border" background-color:aliceblue">
+    <div class="col-12 " style="padding-left:30px;">
+        <div class="row " style="padding-top:5px">
+            <div class="col-2">
+                <label>Name : </label>
+            </div>
+            <div class="col-3" style="padding-bottom:15px">
+                <input asp-for="@Model.CustomerName" class="form-control" disabled />
+            </div>
+            <div class="col-2">
+                <label>Phone Number : </label>
+            </div>
+            <div class="col-3" style="padding-bottom:15px">
+                <input asp-for="@Model.CustomerPhoneNumber" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="col-12 " style="padding-left:30px;">
+        <div class="row " style="padding-top:5px">
+            <div class="col-2">
+                <label>Email : </label>
+            </div>
+            <div class="col-3" style="padding-bottom:15px">
+                <input asp-for="@Model.CustomerEmail" class="form-control" disabled />
+            </div>
+            <div class="col-2">
+                <label>Appointment : </label>
+            </div>
+            <div class="col-3" style="padding-bottom:15px">
+                <input asp-for="@Model.AppointmentDate" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="col-12 " style="padding-left:30px;">
+        <div class="row " style="padding-top:5px">
+            <div class="col-2">
+                <label>Address : </label>
+            </div>
+            <div class="col-3" style="padding-bottom:15px">
+                <input asp-for="@Model.address" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+</div>

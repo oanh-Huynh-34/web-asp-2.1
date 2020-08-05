@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Http
+@using DoAnWebBanGiay.Extensions
+@using DoAnWebBanGiay.Utility
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model DoAnWebBanGiay.Models.ViewModel.HomeViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; 
+}
+<div class="colorlib-intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2 class="intro">It started with a simple idea: Create quality, well-designed products that I wanted myself.</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-area="Customer" asp-controller="Home" asp-action="Index" method="get"  asp-antiforgery="true">
+    <div class="col-12" style="padding-left:30px;">
+        <div class="row " style="padding-top:5px">
+            <select asp-for="ShoeType" asp-items="Model.ShoeTypes" onchange="this.form.submit()" style="height:3em">
+                <option value="">All</option>
+            </select>
+            <div class="col-4" style="padding-bottom:15px">
+                Search: <input type="text" asp-for="SearchString" style="width:250px" />
+            </div>
+            <div class="col-3">
+
+                <input type="submit" class="btn btn-info fa-input" value="&#xf002; Search">
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="colorlib-product">
+    <div class="container">
+        <div class="row row-pb-md">
+            @foreach (var shoe in Model.Shoes)
+            {
+                <div class="col-lg-3 mb-4 text-center">
+                    <div class="product-entry border">
+                        <a href="@Url.Action("Details","Home",new { id = shoe.Id})" class="prod-img">
+                            <img src="@shoe.Image" class="img-fluid" alt="Free html5 bootstrap 4 template">
+                        </a>
+                        <div class="desc">
+                            <h2><a href="@Url.Action("Details","Home",new { id = shoe.Id})">@shoe.Name</a></h2>
+                            <span class="price">@shoe.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div page-model="@Model.PagingInfoVM" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+
+<style>
+    .fa-input {
+        font-family: FontAwesome, ‘Helvetica Neue’, Helvetica, Arial, sans-serif
+    }
+</style>

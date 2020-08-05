@@ -1,0 +1,97 @@
+﻿@model DoAnWebBanGiay.Models.ViewModel.OrderViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/images/favicon.ico">
+    <title>Footware</title>
+    <!-- Custom fonts for this template-->
+    <link href="~/Assets/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fontawesome.com/cheatsheet?from=io">
+
+    <!-- Page level plugin CSS-->
+    <link href="~/Assets/Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Assets/Admin/css/sb-admin.css" rel="stylesheet">
+    <link href='~/Assets/HomePage/css/jquery-ui.css'
+          rel='stylesheet'>
+    <link href='~/Assets/HomePage/css/jquery.timepicker.css'
+          rel='stylesheet'>
+    <script src="~/Assets/HomePage/js/3.1.1/jquery.min.js">
+    </script>
+    <script src="~/Assets/HomePage/js/jquery.timepicker.js">
+    </script>
+    <script src="~/Assets/HomePage/js/3.1.1/jquery-ui.min.js">
+    </script>
+</head>
+<body>
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th class="col-1">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().SalesPerson.Name)
+            </th>
+            <th class="col-3">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().AppointmentDate)
+            </th>
+            <th class="col-2">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerName)
+            </th>
+            <th class="col-2">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerEmail)
+            </th>
+            <th class="col-1">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().CustomerPhoneNumber)
+            </th>
+            <th class="col-2">
+                @Html.DisplayNameFor(m => m.Orders.FirstOrDefault().address)
+            </th>
+            <th class="col-1">
+                Confirmed
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.SalesPerson.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.AppointmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.CustomerPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.isConfirmed)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<br />
+</body>
+</html>

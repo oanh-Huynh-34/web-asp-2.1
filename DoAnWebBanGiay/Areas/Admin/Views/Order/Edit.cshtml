@@ -1,0 +1,215 @@
+﻿@model DoAnWebBanGiay.Models.ViewModel.OrderDetailsViewModel
+@using DoAnWebBanGiay.Extensions
+@using DoAnWebBanGiay.Utility
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<h2 class="text-info">Edit Order</h2>
+<form method="post"  asp-antiforgery="true" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+        <div class="col-3">
+            <input type="hidden" asp-for="Order.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.CustomerName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Order.CustomerName" class="form-control" />
+                </div>
+                <span asp-validation-for="Order.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.CustomerEmail"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Order.CustomerEmail" class="form-control" />
+                </div>
+                <span asp-validation-for="Order.CustomerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.CustomerPhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Order.CustomerPhoneNumber" class="form-control" />
+                </div>
+                <span asp-validation-for="Order.CustomerPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.address"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Order.address" class="form-control" />
+                </div>
+                <span asp-validation-for="Order.address" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.AppointmentDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="@Model.Order.AppointmentDate" value="" type="text" id="datepicker" class="form-control" autocomplete="off" />
+                </div>
+                <script>
+                        $(function () {
+                        $("#datepicker").datepicker({
+                            startDate: '+3d',
+                            endDate: new Date(new Date().setDate(new Date().getDate() + 90)),
+                        });
+                        });
+                </script>
+                <span asp-validation-for="Order.AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.AppointmentTime"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="@Model.Order.AppointmentTime" value="" type="text" class="timepicker form-control" autocomplete="off" />
+                </div>
+                <script>
+                    $('.timepicker').timepicker({
+                        timeFormat: 'h:mm p',
+                        interval: 15,
+                        minTime: '9',
+                        maxTime: '6:00pm',
+                        startTime: '9:00',
+                        dynamic: false,
+                        dropdown: true,
+                        scrollbar: true
+                    });
+                </script>
+                <span asp-validation-for="Order.AppointmentTime" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.SalesPerson"></label>
+                </div>
+                <div class="col-8">
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        <input asp-for="@Model.Order.SalesPerson.Name" readonly class="form-control">
+                        <input asp-for="@Model.Order.SalesPerson.Id" hidden>
+
+                    }
+                    else
+                    {
+                        <select asp-for="@Model.Order.SalesPersonId" asp-items="Model.SalePersons.ToSelectListItemString(Model.Order.SalesPersonId)" class="form-control"></select>
+
+                    }
+                </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Order.isConfirmed"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Order.isConfirmed" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Update" />
+                    <a asp-action="Index" class="btn btn-success">Back to List</a>
+                </div>
+            </div>
+        <div class="col-9">
+            @if (Model != null)
+            {
+                <table class="table table-striped" width="100%">
+                    <tr class="table-info">
+                        <th style="text-align:center; width:20%"></th>
+                        <th style="text-align:center;">
+                            Tên Giày
+                        </th>
+                        <th style="text-align:center;">
+                            Giá
+                        </th>
+                        <th style="text-align:center;">
+                            Màu
+                        </th>
+                        <th style="text-align:center;">
+                            Kích thươcs
+                        </th>
+                        <th style="text-align:center;">
+                            Hiệu giày
+                        </th>
+                        <th style="text-align:center;">
+                            Loại giày
+                        </th>
+                        <th style="text-align:center;">
+                            Ngày giao
+                        </th>
+                        <th style="text-align:center;"></th>
+                    </tr>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                    <tr style="padding:50px;">
+                        <td>
+                            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <img src="@item.Shoes.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;width:60px;height:60px" />
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.Price)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.Color)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.Size)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.Brands.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Shoes.ShoeTypes.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @{string date = ""; }
+                            @if (item.ArriveDate.Year.ToString() != "1")
+                            {
+                                {
+                                    date = item.ArriveDate.Month.ToString() + "/" + item.ArriveDate.Day.ToString() + "/" + item.ArriveDate.Year.ToString();
+                                }
+                            }
+                            @date
+                        </td>
+                        <td style="text-align:center">
+                            <div class="btn-group" role="group">
+                                <a type="button" class="btn btn-primary" href="@Url.Action("Edit","OrderDetail",new { ShoesId = item.Shoes.Id,OrderId=Model.Order.Id })">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a type="button" class="btn btn-success" href="@Url.Action("Details","OrderDetail",new { ShoesId = item.Shoes.Id,OrderId=Model.Order.Id})">
+                                    <i class="far fa-list-alt"></i>
+                                </a>
+                                <a type="button" class="btn btn-danger" href="@Url.Action("Delete","OrderDetail",new { ShoesId = item.Shoes.Id,OrderId=Model.Order.Id})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    }
+                </table>}
+            else
+            {
+                <div>
+                    There is no item in the shopping cart
+                </div>
+            }
+        </div>
+    </form>
+    @section Scripts{
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+
+
